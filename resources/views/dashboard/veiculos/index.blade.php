@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">
                     <p>Sistema Gerenciamento de Veículos</p>
-                    <a class="btn btn-secondary">Cadastrar</a>
+                    <a href="{{ url('veiculos/create') }}" class="btn btn-secondary">Cadastrar</a>
                 </div>
 
                 <div class="card-body">
@@ -23,19 +23,22 @@
                           </tr>
                         </thead>
                         <tbody>
+                          @foreach ($veiculos as $veiculo)
                           <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
+                            <th scope="row">{{ $veiculo->placa }}</th>
+                            <td>{{ $veiculo->modelo }}</td>
+                            <td>{{ $veiculo->marca }}</td>
+                            <td>{{ mb_convert_case($veiculo->status, MB_CASE_TITLE, 'UTF-8') }}</td>
+                            <td>{{ $veiculo->chassi }}</td>
                             <td class="d-flex">
-                                <a class="btn btn-primary">Editar</a>
-                                <a class="btn btn-secondary">Deletar</a>
+                                <a href="{{ url('veiculos/' . $veiculo->id) }}" class="btn btn-primary">Editar</a>
+                                <a href="{{ url('veiculos/' . $veiculo->id) }}" class="btn btn-secondary">Deletar</a>
                             </td>
                           </tr>
+                          @endforeach
                         </tbody>
                     </table>
+                    {{ $veiculos->links() }}
                 </div>
             </div>
         </div>

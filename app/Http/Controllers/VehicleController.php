@@ -24,7 +24,11 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        return view('dashboard.veiculos.index');
+        $veiculos = Vehicle::orderBy('created_at', 'desc')->paginate(4);
+
+        return view('dashboard.veiculos.index', [
+            'veiculos' => $veiculos,
+        ]);
     }
 
     /**
