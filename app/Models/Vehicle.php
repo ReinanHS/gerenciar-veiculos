@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\StatusHistory;
 use Illuminate\Database\Eloquent\Model;
 
 class Vehicle extends Model
@@ -14,4 +15,8 @@ class Vehicle extends Model
     protected $fillable = [
         'placa', 'modelo', 'marca', 'status', 'chassi',
     ];
+
+    public function statusHistory(){
+        return $this->hasMany(StatusHistory::class);
+    }
 }

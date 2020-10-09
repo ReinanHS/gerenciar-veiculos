@@ -15,6 +15,10 @@ class CreateStatusHistoriesTable extends Migration
     {
         Schema::create('status_histories', function (Blueprint $table) {
             $table->id();
+            $table->integer('vehicle_id')->unsigned();
+            $table->string('to');
+            $table->string('from');
+            $table->foreign('vehicle_id')->references('id')->on('vehicles');
             $table->timestamps();
         });
     }
