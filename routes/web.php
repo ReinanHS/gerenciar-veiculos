@@ -26,6 +26,7 @@ Route::group(['prefix' => 'veiculos', 'middleware' => 'auth'], function() {
     Route::resource('/', 'VehicleController', [
         'names' => [
             'index' => 'veiculos',
+            'create' => 'veiculos.create',
             'store' => 'veiculos.new',
         ]
     ]);

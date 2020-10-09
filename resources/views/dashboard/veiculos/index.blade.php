@@ -7,10 +7,15 @@
             <div class="card">
                 <div class="card-header">
                     <p>Sistema Gerenciamento de Veículos</p>
-                    <a href="{{ url('veiculos/create') }}" class="btn btn-secondary">Cadastrar</a>
+                    <a href="{{ route('veiculos.create') }}" class="btn btn-secondary">Cadastrar</a>
                 </div>
 
                 <div class="card-body">
+                    @if (session('message'))
+                        <div class="alert alert-success">
+                            {{ session('message') }}
+                        </div>
+                    @endif
                     <table class="table">
                         <thead>
                           <tr>

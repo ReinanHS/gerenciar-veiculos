@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\VehicleStoreRequest;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\VehicleStoreRequest;
 
 class VehicleController extends Controller
 {
@@ -50,7 +51,22 @@ class VehicleController extends Controller
      */
     public function store(VehicleStoreRequest $request)
     {
-        dd($request->all());
+        try{
+            DB::beginTransaction();
+
+            $vehicle = new Vehicle();
+            $vehicle->create($request->all());
+
+            DB::commit();
+
+            return redirect()->route('veiculos')->with('message', 'Veículo cadastrado com sucesso');
+
+        }catch(\Exception $e){
+            DB::rollback();
+
+            return redirect()->route('veiculos.new')
+            ->with('message', 'Não foi possível completar o registro ocorreu um erro inesperado.');
+        }
     }
 
     /**
