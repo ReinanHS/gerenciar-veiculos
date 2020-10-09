@@ -18,6 +18,7 @@ class CreateStatusHistoriesTable extends Migration
             $table->integer('vehicle_id')->unsigned();
             $table->string('to');
             $table->string('from');
+            $table->text('note', 500);
             $table->foreign('vehicle_id')->references('id')->on('vehicles');
             $table->timestamps();
         });
