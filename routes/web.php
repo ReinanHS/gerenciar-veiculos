@@ -23,6 +23,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::group(['prefix' => 'veiculos', 'middleware' => 'auth'], function() {
-    Route::resource('/', 'VehicleController');
+    Route::resource('/', 'VehicleController', [
+        'names' => [
+            'index' => 'veiculos',
+            'store' => 'veiculos.new',
+        ]
+    ]);
 });
 

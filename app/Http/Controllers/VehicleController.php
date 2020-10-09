@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\VehicleStoreRequest;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 
@@ -38,18 +39,18 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.veiculos.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \App\Http\Requests\VehicleStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(VehicleStoreRequest $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
