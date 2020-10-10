@@ -13,7 +13,7 @@ class StatusHistory extends Model
      * @var array
      */
     protected $fillable = [
-        'vehicle_id', 'to', 'from',
+        'vehicle_id', 'to', 'from', 'note',
     ];
 
     public function vehicle()

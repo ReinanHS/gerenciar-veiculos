@@ -124,6 +124,36 @@
                     <option value="manutenção">Manutenção</option>
                 </select>
             </div>
+            <div class="form-group" v-if="oldStatus != '' && oldStatus != inputs.status">
+                <label for="chassi-input">Observação do status</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    :class="{
+                        'is-invalid': error.observacao.length > 0,
+                        'is-valid':
+                            inputs.observacao.length > 10 &&
+                            error.observacao.length == 0,
+                    }"
+                    v-model="inputs.observacao"
+                    name="observacao"
+                    required
+                    id="observacao-input"
+                    aria-describedby="observacaoHelp"
+                />
+                <span
+                    class="invalid-feedback"
+                    role="alert"
+                    v-if="error.observacao.length > 0"
+                >
+                    <strong
+                        v-for="(item, index) in error.observacao"
+                        :key="index"
+                        class="d-block"
+                        >{{ item }}
+                    </strong>
+                </span>
+            </div>
             <div class="form-group">
                 <label for="chassi-input">Chassi</label>
                 <input
@@ -189,16 +219,25 @@ export default {
         },
     },
     mounted() {
-        this.inputs = this.vehicle;
+        this.inputs = {
+            ...this.inputs,
+            ...this.vehicle
+        };
+
+        if(this.action == 'put'){
+            this.oldStatus = this.vehicle.status
+        }
     },
     data() {
         return {
+            oldStatus: '',
             inputs: {
                 chassi: "",
                 status: "disponível",
                 marca: "",
                 modelo: "",
                 placa: "",
+                observacao: "",
             },
             error: {
                 chassi: [],
@@ -206,6 +245,7 @@ export default {
                 marca: [],
                 modelo: [],
                 placa: [],
+                observacao: [],
             },
             consulta: false,
         };
@@ -234,6 +274,7 @@ export default {
                 this.validarChassi(),
                 this.validarMarca(),
                 this.validarModelo(),
+                this.validarObservacao(),
             ];
 
             if (validation_result.findIndex((i) => i == true) == -1) {
@@ -337,6 +378,20 @@ export default {
 
             return false;
         },
+        validarObservacao: function(){
+            if(this.action == 'put' && this.oldStatus != this.inputs.status){
+                this.error.observacao = [];
+
+                if (this.inputs.observacao.length < 7) {
+                    this.error.observacao.push("Essa observação é inválida");
+                    return true;
+                }
+
+                return false;
+            }
+
+            return false;
+        }
     },
 };
 </script>

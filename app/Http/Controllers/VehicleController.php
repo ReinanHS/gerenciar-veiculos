@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Vehicle;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\{VehicleStoreRequest, VehicleUpdateRequest};
+use App\Models\StatusHistory;
 
 class VehicleController extends Controller
 {
@@ -103,6 +104,19 @@ class VehicleController extends Controller
     {
         try{
             DB::beginTransaction();
+
+            if($request->input('status') != $vehicle->status){
+                if( $request->has('observacao') ){
+
+                    $statusHistory = new StatusHistory();
+                    $statusHistory->vehicle_id = $vehicle->id;
+                    $statusHistory->to = $vehicle->status;
+                    $statusHistory->from = $request->input('status');
+                    $statusHistory->note = $request->input('observacao');
+                    $statusHistory->save();
+
+                }
+            }
 
             $vehicle->update($request->all());
 

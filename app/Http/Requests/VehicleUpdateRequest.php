@@ -29,6 +29,7 @@ class VehicleUpdateRequest extends FormRequest
             'marca' => ['required', 'max:100'],
             'status' => ['required', 'in:disponível,quebrado,manutenção'],
             'chassi' => ['required', 'unique:vehicles,chassi,'.$this->vehicle->chassi.',chassi', 'max:17', 'min:17'],
+            'observacao' => ['required_if:'.$this->vehicle->status.',!=,'.$this->input('status'), 'nullable', 'string', 'max:100', 'min:7'],
         ];
     }
 }

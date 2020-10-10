@@ -2111,6 +2111,36 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "FormVehiche",
   props: {
@@ -2137,23 +2167,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   mounted: function mounted() {
-    this.inputs = this.vehicle;
+    this.inputs = _objectSpread(_objectSpread({}, this.inputs), this.vehicle);
+
+    if (this.action == 'put') {
+      this.oldStatus = this.vehicle.status;
+    }
   },
   data: function data() {
     return {
+      oldStatus: '',
       inputs: {
         chassi: "",
         status: "disponível",
         marca: "",
         modelo: "",
-        placa: ""
+        placa: "",
+        observacao: ""
       },
       error: {
         chassi: [],
         status: [],
         marca: [],
         modelo: [],
-        placa: []
+        placa: [],
+        observacao: []
       },
       consulta: false
     };
@@ -2179,7 +2216,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     validation: function validation() {
       var _this = this;
 
-      var validation_result = [this.validarPlaca(), this.validarChassi(), this.validarMarca(), this.validarModelo()];
+      var validation_result = [this.validarPlaca(), this.validarChassi(), this.validarMarca(), this.validarModelo(), this.validarObservacao()];
 
       if (validation_result.findIndex(function (i) {
         return i == true;
@@ -2255,6 +2292,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (this.inputs.modelo.length < 4) {
         this.error.modelo.push("Esse modelo não é inválido");
         return true;
+      }
+
+      return false;
+    },
+    validarObservacao: function validarObservacao() {
+      if (this.action == 'put' && this.oldStatus != this.inputs.status) {
+        this.error.observacao = [];
+
+        if (this.inputs.observacao.length < 7) {
+          this.error.observacao.push("Essa observação é inválida");
+          return true;
+        }
+
+        return false;
       }
 
       return false;
@@ -38934,6 +38985,66 @@ var render = function() {
             ]
           )
         ]),
+        _vm._v(" "),
+        _vm.oldStatus != "" && _vm.oldStatus != _vm.inputs.status
+          ? _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "chassi-input" } }, [
+                _vm._v("Observação do status")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.inputs.observacao,
+                    expression: "inputs.observacao"
+                  }
+                ],
+                staticClass: "form-control",
+                class: {
+                  "is-invalid": _vm.error.observacao.length > 0,
+                  "is-valid":
+                    _vm.inputs.observacao.length > 10 &&
+                    _vm.error.observacao.length == 0
+                },
+                attrs: {
+                  type: "text",
+                  name: "observacao",
+                  required: "",
+                  id: "observacao-input",
+                  "aria-describedby": "observacaoHelp"
+                },
+                domProps: { value: _vm.inputs.observacao },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.inputs, "observacao", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _vm.error.observacao.length > 0
+                ? _c(
+                    "span",
+                    {
+                      staticClass: "invalid-feedback",
+                      attrs: { role: "alert" }
+                    },
+                    _vm._l(_vm.error.observacao, function(item, index) {
+                      return _c(
+                        "strong",
+                        { key: index, staticClass: "d-block" },
+                        [_vm._v(_vm._s(item) + "\n                ")]
+                      )
+                    }),
+                    0
+                  )
+                : _vm._e()
+            ])
+          : _vm._e(),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [
           _c("label", { attrs: { for: "chassi-input" } }, [_vm._v("Chassi")]),
