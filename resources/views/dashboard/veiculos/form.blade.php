@@ -19,12 +19,12 @@
                     @enderror
 
                     @if (Route::current()->getName() == 'veiculos.edit')
-                        <form-vehiche route="{{ route('veiculos.update', $vehicle->placa) }}">
+                        <form-vehiche action="put" route="{{ route('veiculos.update', $vehicle->placa) }}" :vehicle="{{ json_encode($vehicle) }}" route-index="{{ route('veiculos') }}">
                             @csrf
                             @method('PUT')
                         </from-vehiche>
                     @else
-                        <form-vehiche route="{{ route('veiculos.new') }}">
+                        <form-vehiche action="post" route="{{ route('veiculos.new') }}" route-index="{{ route('veiculos') }}">
                             @csrf
                         </from-vehiche>
                     @endif

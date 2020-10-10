@@ -155,9 +155,9 @@
                 </span>
             </div>
             <button v-on:click.prevent.stop="submit()" class="btn btn-primary">
-                Cadastrar
+                Enviar
             </button>
-            <a href="#" class="btn btn-secondary">Voltar</a>
+            <a :href="routeIndex" class="btn btn-secondary">Voltar</a>
         </form>
     </div>
 </template>
@@ -169,15 +169,36 @@ export default {
         route: {
             type: String,
         },
+        vehicle: {
+            type: Object,
+            default() {
+                return {
+                    chassi: "",
+                    status: "disponível",
+                    marca: "",
+                    modelo: "",
+                    placa: "",
+                };
+            },
+        },
+        routeIndex: {
+            type: String,
+        },
+        action: {
+            type: String,
+        },
+    },
+    mounted() {
+        this.inputs = this.vehicle;
     },
     data() {
         return {
             inputs: {
                 chassi: "",
-                status: "quebrado",
+                status: "disponível",
                 marca: "",
                 modelo: "",
-                placa: "iaj2889",
+                placa: "",
             },
             error: {
                 chassi: [],
@@ -216,31 +237,43 @@ export default {
             ];
 
             if (validation_result.findIndex((i) => i == true) == -1) {
-                this.$awn.asyncBlock(
-                    axios
-                        .post(this.route, this.inputs)
-                        .then((response) => {
-                            this.$awm.success("Veículo cadastrado com sucesso");
-                            window.location.href = this.route;
-                            console.log(response);
-                        })
-                        .catch((error) => {
-                            console.log(error.response);
-                            if (
-                                error.response != undefined &&
-                                error.response.status == 422
-                            ) {
-                                this.error = {
-                                    ...this.error,
-                                    ...error.response.data.errors,
-                                };
-                                return this.$awn.alert("Erro na validação");
-                            }
-
-                            return (window.location.href = this.route);
-                        }),
-                    false
-                );
+                if (this.action == "post") {
+                    this.$awn.asyncBlock(
+                        axios
+                            .post(this.route, this.inputs)
+                            .then((response) => {
+                                window.location.href = this.$props.routeIndex;
+                            })
+                            .catch((error) => {
+                                if (error.response != undefined) {
+                                    this.error = {
+                                        ...this.error,
+                                        ...error.response.data.errors,
+                                    };
+                                    return this.$awn.alert("Erro na validação");
+                                }
+                            }),
+                        false
+                    );
+                }else if (this.action == "put") {
+                    this.$awn.asyncBlock(
+                        axios
+                            .put(this.route, this.inputs)
+                            .then((response) => {
+                                window.location.href = this.$props.routeIndex;
+                            })
+                            .catch((error) => {
+                                if (error.response != undefined) {
+                                    this.error = {
+                                        ...this.error,
+                                        ...error.response.data.errors,
+                                    };
+                                    return this.$awn.alert("Erro na validação");
+                                }
+                            }),
+                        false
+                    );
+                }
             }
         },
         validarPlaca: function () {

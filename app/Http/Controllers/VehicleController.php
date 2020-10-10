@@ -58,7 +58,7 @@ class VehicleController extends Controller
 
             DB::commit();
 
-            return redirect()->route('veiculos')->with('message', 'Veículo cadastrado com sucesso');
+            return $this->typeReturn($request, 'Veículo cadastrado com sucesso');
 
         }catch(\Exception $e){
             DB::rollback();
@@ -87,7 +87,7 @@ class VehicleController extends Controller
      */
     public function edit(Vehicle $vehicle)
     {
-        return view('dashboard.veiculos.create', [
+        return view('dashboard.veiculos.form', [
             'vehicle' => $vehicle,
         ]);
     }
@@ -108,7 +108,7 @@ class VehicleController extends Controller
 
             DB::commit();
 
-            return redirect()->route('veiculos')->with('message', 'Veículo atualizado com sucesso');
+            return $this->typeReturn($request, 'Veículo atualizado com sucesso');
 
         }catch(\Exception $e){
             DB::rollback();
@@ -128,5 +128,14 @@ class VehicleController extends Controller
     {
         $vehicle->delete();
         return redirect()->route('veiculos')->with('message', 'O veículo foi deletado com sucesso');
+    }
+
+
+    public function typeReturn($request, $message){
+        if($request->getContentType() == 'json'){
+            return response()->json($message);
+        }
+
+        return redirect()->route('veiculos')->with('message', $message);
     }
 }

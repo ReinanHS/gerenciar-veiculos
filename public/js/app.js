@@ -2116,16 +2116,37 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   props: {
     route: {
       type: String
+    },
+    vehicle: {
+      type: Object,
+      "default": function _default() {
+        return {
+          chassi: "",
+          status: "disponível",
+          marca: "",
+          modelo: "",
+          placa: ""
+        };
+      }
+    },
+    routeIndex: {
+      type: String
+    },
+    action: {
+      type: String
     }
+  },
+  mounted: function mounted() {
+    this.inputs = this.vehicle;
   },
   data: function data() {
     return {
       inputs: {
         chassi: "",
-        status: "quebrado",
+        status: "disponível",
         marca: "",
         modelo: "",
-        placa: "iaj2889"
+        placa: ""
       },
       error: {
         chassi: [],
@@ -2163,21 +2184,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (validation_result.findIndex(function (i) {
         return i == true;
       }) == -1) {
-        this.$awn.asyncBlock(axios.post(this.route, this.inputs).then(function (response) {
-          _this.$awm.success("Veículo cadastrado com sucesso");
-
-          window.location.href = _this.route;
-          console.log(response);
-        })["catch"](function (error) {
-          console.log(error.response);
-
-          if (error.response != undefined && error.response.status == 422) {
-            _this.error = _objectSpread(_objectSpread({}, _this.error), error.response.data.errors);
-            return _this.$awn.alert("Erro na validação");
-          }
-
-          return window.location.href = _this.route;
-        }), false);
+        if (this.action == "post") {
+          this.$awn.asyncBlock(axios.post(this.route, this.inputs).then(function (response) {
+            window.location.href = _this.$props.routeIndex;
+          })["catch"](function (error) {
+            if (error.response != undefined) {
+              _this.error = _objectSpread(_objectSpread({}, _this.error), error.response.data.errors);
+              return _this.$awn.alert("Erro na validação");
+            }
+          }), false);
+        } else if (this.action == "put") {
+          this.$awn.asyncBlock(axios.put(this.route, this.inputs).then(function (response) {
+            window.location.href = _this.$props.routeIndex;
+          })["catch"](function (error) {
+            if (error.response != undefined) {
+              _this.error = _objectSpread(_objectSpread({}, _this.error), error.response.data.errors);
+              return _this.$awn.alert("Erro na validação");
+            }
+          }), false);
+        }
       }
     },
     validarPlaca: function validarPlaca() {
@@ -38972,12 +38997,14 @@ var render = function() {
               }
             }
           },
-          [_vm._v("\n            Cadastrar\n        ")]
+          [_vm._v("\n            Enviar\n        ")]
         ),
         _vm._v(" "),
-        _c("a", { staticClass: "btn btn-secondary", attrs: { href: "#" } }, [
-          _vm._v("Voltar")
-        ])
+        _c(
+          "a",
+          { staticClass: "btn btn-secondary", attrs: { href: _vm.routeIndex } },
+          [_vm._v("Voltar")]
+        )
       ],
       2
     )
