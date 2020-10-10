@@ -21,14 +21,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-
-Route::group(['prefix' => 'veiculos', 'middleware' => 'auth'], function() {
-    Route::resource('/', 'VehicleController', [
-        'names' => [
-            'index' => 'veiculos',
-            'create' => 'veiculos.create',
-            'store' => 'veiculos.new',
-        ]
-    ]);
-});
-
+Route::resource('vehicles', 'VehicleController', [
+    'names' => [
+        'index' => 'veiculos',
+        'create' => 'veiculos.create',
+        'store' => 'veiculos.new',
+        'edit' => 'veiculos.edit',
+        'update' => 'veiculos.update'
+    ],
+])->middleware('auth');

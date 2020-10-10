@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class VehicleStoreRequest extends FormRequest
+class VehicleUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,11 +24,11 @@ class VehicleStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'placa' => ['required', 'unique:vehicles,placa', 'max:7', 'min:7'],
+            'placa' => ['required', 'unique:vehicles,placa,'.$this->vehicle->placa.',placa', 'max:7', 'min:7'],
             'modelo' => ['required', 'max:100'],
             'marca' => ['required', 'max:100'],
             'status' => ['required', 'in:disponível,quebrado,manutenção'],
-            'chassi' => ['required', 'unique:vehicles,chassi', 'max:17', 'min:17'],
+            'chassi' => ['required', 'unique:vehicles,chassi,'.$this->vehicle->chassi.',chassi', 'max:17', 'min:17'],
         ];
     }
 }

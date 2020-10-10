@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests\VehicleStoreRequest;
+use App\Http\Requests\{VehicleStoreRequest, VehicleUpdateRequest};
 
 class VehicleController extends Controller
 {
@@ -88,19 +88,35 @@ class VehicleController extends Controller
      */
     public function edit(Vehicle $vehicle)
     {
-        //
+        return view('dashboard.veiculos.create', [
+            'vehicle' => $vehicle,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\VehicleUpdateRequest  $request
      * @param  \App\Models\Vehicle  $vehicle
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Vehicle $vehicle)
+    public function update(VehicleUpdateRequest $request, Vehicle $vehicle)
     {
-        //
+        try{
+            DB::beginTransaction();
+
+            $vehicle->update($request->all());
+
+            DB::commit();
+
+            return redirect()->route('veiculos')->with('message', 'Veículo atualizado com sucesso');
+
+        }catch(\Exception $e){
+            DB::rollback();
+
+            return redirect()->route('veiculos.new')
+            ->with('message', 'Não foi possível completar a atualização ocorreu um erro inesperado.');
+        }
     }
 
     /**

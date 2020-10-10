@@ -36,7 +36,7 @@
                             <td>{{ mb_convert_case($veiculo->status, MB_CASE_TITLE, 'UTF-8') }}</td>
                             <td>{{ $veiculo->chassi }}</td>
                             <td class="d-flex">
-                                <a href="{{ url('veiculos/' . $veiculo->id) }}" class="btn btn-primary">Editar</a>
+                                <a href="{{ route('veiculos.edit', $veiculo->placa) }}" class="btn btn-primary">Editar</a>
                                 <a href="{{ url('veiculos/' . $veiculo->id) }}" class="btn btn-secondary">Deletar</a>
                             </td>
                           </tr>

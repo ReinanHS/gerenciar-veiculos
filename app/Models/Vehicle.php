@@ -19,4 +19,9 @@ class Vehicle extends Model
     public function statusHistory(){
         return $this->hasMany(StatusHistory::class);
     }
+
+    public function getRouteKeyName()
+    {
+        return 'placa';
+    }
 }
