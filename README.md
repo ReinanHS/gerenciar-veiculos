@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="300" height="200" img src="https://i.pinimg.com/originals/6e/c8/fa/6ec8fa35800b339aa060d70d67edcf03.gif"/>
+  <img width="300" height="200" img src="https://gifimage.net/wp-content/uploads/2018/11/vehicle-loading-gif-9.gif"/>
 </p>
 
 <p align="center">
