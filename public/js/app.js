@@ -2373,6 +2373,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ListVehiche",
   props: {
@@ -39214,6 +39215,7 @@ var render = function() {
             }
           ],
           staticClass: "form-control mr-sm-2",
+          staticStyle: { width: "100%" },
           attrs: {
             type: "text",
             placeholder: "Filtro",
@@ -39231,60 +39233,67 @@ var render = function() {
         })
       ]),
       _vm._v(" "),
-      _c("table", { staticClass: "table" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "tbody",
-          _vm._l(_vm.filtered, function(veiculo, index) {
-            return _c("tr", { key: index }, [
-              _c("th", { attrs: { scope: "row" } }, [
-                _vm._v(_vm._s(veiculo.placa))
-              ]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(veiculo.modelo))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(veiculo.marca))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(veiculo.status))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(veiculo.chassi))]),
-              _vm._v(" "),
-              _c("td", { staticClass: "d-flex" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-primary",
-                    attrs: { href: _vm.route + "/" + veiculo.placa + "/edit" }
-                  },
-                  [_vm._v("Editar")]
-                ),
+      _c(
+        "table",
+        {
+          staticClass: "table table-bordered dataTable",
+          staticStyle: { width: "100%" }
+        },
+        [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(_vm.filtered, function(veiculo, index) {
+              return _c("tr", { key: index }, [
+                _c("th", { attrs: { scope: "row" } }, [
+                  _vm._v(_vm._s(veiculo.placa))
+                ]),
                 _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        $event.stopPropagation()
-                        return _vm.modalDelete(veiculo)
+                _c("td", [_vm._v(_vm._s(veiculo.modelo))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(veiculo.marca))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(veiculo.status))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(veiculo.chassi))]),
+                _vm._v(" "),
+                _c("td", { staticClass: "d-flex" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { href: _vm.route + "/" + veiculo.placa + "/edit" }
+                    },
+                    [_vm._v("Editar")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          $event.stopPropagation()
+                          return _vm.modalDelete(veiculo)
+                        }
                       }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n                        Deletar\n                    "
-                    )
-                  ]
-                )
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Deletar\n                    "
+                      )
+                    ]
+                  )
+                ])
               ])
-            ])
-          }),
-          0
-        )
-      ])
+            }),
+            0
+          )
+        ]
+      )
     ],
     1
   )

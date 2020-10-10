@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
+use App\Models\StatusHistory;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
@@ -23,6 +27,22 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $veiculos = Cache::remember('veiculos', 60 * 2, function () {
+            return Vehicle::count();
+        });
+
+        $observacoes = Cache::remember('observacoes', 60 * 2, function () {
+            return StatusHistory::count();
+        });
+
+        $users = Cache::remember('users', 60 * 2, function () {
+            return User::count();
+        });
+
+        return view('home', [
+            'veiculos' => $veiculos,
+            'observacoes' => $observacoes,
+            'users' => $users,
+        ]);
     }
 }
