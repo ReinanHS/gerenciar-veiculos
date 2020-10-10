@@ -1,0 +1,51 @@
+/**
+ * First we will load all of this project's JavaScript dependencies which
+ * includes Vue and other libraries. It is a great starting point when
+ * building robust, powerful web applications using Vue and Laravel.
+ */
+
+require('./bootstrap');
+require("vue-awesome-notifications/dist/styles/style.css");
+
+window.Vue = require('vue');
+import VueAWN from "vue-awesome-notifications";
+
+Vue.use(VueAWN, {
+	position: "bottom-left",
+  	labels: {
+    	success: "Sucesso",
+        alert: "Atenção",
+        warning: "Atenção",
+        info: "Informação",
+        confirm: "Necessária a confirmação",
+        confirmOk: "Aceito",
+        confirmCancel: "Cancelar",
+ 	},
+  	messages: {
+  		"async-block": "Carregando",
+  	},
+})
+/**
+ * The following block of code may be used to automatically register your
+ * Vue components. It will recursively scan this directory for the Vue
+ * components and automatically register them with their "basename".
+ *
+ * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
+ */
+
+const files = require.context('./', true, /\.vue$/i)
+files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+
+// Vue.component('list-vehiche', require('./components/ListVehiche.vue').default);
+// Vue.component('modal-delete', require('./components/ModalDelete.vue').default);
+// Vue.component('from-vehiche', require('./components/FromVehiche.vue').default);
+
+/**
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
+
+const app = new Vue({
+    el: '#app',
+});
