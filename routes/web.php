@@ -20,3 +20,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('vehicles', 'VehicleController', [
+    'names' => [
+        'index' => 'veiculos',
+        'create' => 'veiculos.create',
+        'store' => 'veiculos.new',
+        'edit' => 'veiculos.edit',
+        'update' => 'veiculos.update'
+    ],
+])->middleware('auth');
