@@ -39,7 +39,7 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        return view('dashboard.veiculos.create');
+        return view('dashboard.veiculos.form');
     }
 
     /**

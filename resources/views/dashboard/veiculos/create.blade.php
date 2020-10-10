@@ -61,7 +61,7 @@
                         </div>
                         <div class="form-group">
                             <label for="status-select">Status</label>
-                            <select class="form-control" id="status-select" selected="{{ old('status') ?? $vehicle->status ?? '' }}" name="status">
+                            <select class="form-control" id="status-select" name="status">
                                 <option value="disponível">Disponível</option>
                                 <option value="quebrado">Quebrado</option>
                                 <option value="manutenção">Manutenção</option>
