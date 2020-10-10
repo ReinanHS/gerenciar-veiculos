@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Vehicle;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\{VehicleStoreRequest, VehicleUpdateRequest};
 
@@ -127,6 +126,7 @@ class VehicleController extends Controller
      */
     public function destroy(Vehicle $vehicle)
     {
-        //
+        $vehicle->delete();
+        return redirect()->route('veiculos')->with('message', 'O veículo foi deletado com sucesso');
     }
 }

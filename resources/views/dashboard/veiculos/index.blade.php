@@ -16,33 +16,7 @@
                             {{ session('message') }}
                         </div>
                     @endif
-                    <table class="table">
-                        <thead>
-                          <tr>
-                            <th scope="col">Placa</th>
-                            <th scope="col">Modelo</th>
-                            <th scope="col">Marca</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Chassi</th>
-                            <th scope="col">Ações</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          @foreach ($veiculos as $veiculo)
-                          <tr>
-                            <th scope="row">{{ $veiculo->placa }}</th>
-                            <td>{{ $veiculo->modelo }}</td>
-                            <td>{{ $veiculo->marca }}</td>
-                            <td>{{ mb_convert_case($veiculo->status, MB_CASE_TITLE, 'UTF-8') }}</td>
-                            <td>{{ $veiculo->chassi }}</td>
-                            <td class="d-flex">
-                                <a href="{{ route('veiculos.edit', $veiculo->placa) }}" class="btn btn-primary">Editar</a>
-                                <a href="{{ url('veiculos/' . $veiculo->id) }}" class="btn btn-secondary">Deletar</a>
-                            </td>
-                          </tr>
-                          @endforeach
-                        </tbody>
-                    </table>
+                    <list-vehiche :veiculos="{{ json_encode($veiculos) }}" route="{{ route('veiculos') }}"></list-vehiche>
                     {{ $veiculos->links() }}
                 </div>
             </div>

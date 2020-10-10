@@ -90,7 +90,7 @@
                         Cadastrar
                         @endif
                         </button>
-                        <a href="{{ url()->previous() }}" class="btn btn-secondary">Voltar</a>
+                        <a href="{{ route('veiculos') }}" class="btn btn-secondary">Voltar</a>
                     </form>
                 </div>
             </div>
