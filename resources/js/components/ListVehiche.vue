@@ -8,9 +8,10 @@
                 type="text"
                 placeholder="Filtro"
                 aria-label="Search"
+                style="width: 100%;"
             />
         </form>
-        <table class="table">
+        <table class="table table-bordered dataTable" style="width: 100%;">
             <thead>
                 <tr>
                     <th scope="col">Placa</th>
