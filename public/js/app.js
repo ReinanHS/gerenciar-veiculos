@@ -2354,8 +2354,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'ListVehiche',
+  name: "ListVehiche",
   props: {
     veiculos: {
       type: Object,
@@ -2367,9 +2386,45 @@ __webpack_require__.r(__webpack_exports__);
       type: String
     }
   },
+  data: function data() {
+    return {
+      filter: ""
+    };
+  },
+  computed: {
+    filtered: function filtered() {
+      var _this = this;
+
+      return this.veiculos.data.filter(function (veiculo) {
+        var placa = _this.removeAcentos(veiculo.placa.toLowerCase());
+
+        var modelo = _this.removeAcentos(veiculo.modelo.toLowerCase());
+
+        var marca = _this.removeAcentos(veiculo.marca.toLowerCase());
+
+        var status = _this.removeAcentos(veiculo.status.toLowerCase());
+
+        var chassi = _this.removeAcentos(veiculo.chassi.toLowerCase());
+
+        var searchTerm = _this.removeAcentos(_this.filter.toLowerCase());
+
+        return placa.includes(searchTerm) || modelo.includes(searchTerm) || marca.includes(searchTerm) || chassi.includes(searchTerm) || status.includes(searchTerm);
+      });
+    }
+  },
   methods: {
     modalDelete: function modalDelete(veiculo) {
       this.$refs.modal.showModal(veiculo);
+    },
+    removeAcentos: function removeAcentos(text) {
+      var a = "àáäâãèéëêìíïîòóöôùúüûñçßÿœæŕśńṕẃǵǹḿǘẍźḧ·/_,:;";
+      var b = "aaaaaeeeeiiiioooouuuuncsyoarsnpwgnmuxzh------";
+      var p = new RegExp(a.split("").join("|"), "g");
+      return text.toString().toLowerCase().trim().replace(p, function (c) {
+        return b.charAt(a.indexOf(c));
+      }) // Replace special chars
+      .replace(/&/g, "-and-") // Replace & with 'and'
+      .replace(/[\s\W-]+/g, "-"); // Replace spaces, non-word characters and dashes with a single dash (-)
     }
   }
 });
@@ -39148,12 +39203,40 @@ var render = function() {
     [
       _c("modal-delete", { ref: "modal", attrs: { route: _vm.route } }),
       _vm._v(" "),
+      _c("form", { staticClass: "form-inline mt-2 mt-md-0 mb-4" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.filter,
+              expression: "filter"
+            }
+          ],
+          staticClass: "form-control mr-sm-2",
+          attrs: {
+            type: "text",
+            placeholder: "Filtro",
+            "aria-label": "Search"
+          },
+          domProps: { value: _vm.filter },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.filter = $event.target.value
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
       _c("table", { staticClass: "table" }, [
         _vm._m(0),
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(_vm.veiculos.data, function(veiculo, index) {
+          _vm._l(_vm.filtered, function(veiculo, index) {
             return _c("tr", { key: index }, [
               _c("th", { attrs: { scope: "row" } }, [
                 _vm._v(_vm._s(veiculo.placa))
@@ -39190,7 +39273,11 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Deletar")]
+                  [
+                    _vm._v(
+                      "\n                        Deletar\n                    "
+                    )
+                  ]
                 )
               ])
             ])
