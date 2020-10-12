@@ -37,7 +37,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getAvatar(){
+    public function getAvatarAttribute(){
         $url = 'https://www.gravatar.com/avatar/';
         $url .= md5( strtolower( trim( $this->email ) ) );
         $url .= "?s=80&d=mp&r=g";

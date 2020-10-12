@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Inertia\Inertia;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use App\Models\StatusHistory;
@@ -39,7 +40,7 @@ class HomeController extends Controller
             return User::count();
         });
 
-        return view('home', [
+        return Inertia::render('Dashboard/Home', [
             'veiculos' => $veiculos,
             'observacoes' => $observacoes,
             'users' => $users,

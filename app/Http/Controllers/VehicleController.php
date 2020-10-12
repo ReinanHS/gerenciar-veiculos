@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\Vehicle;
+use App\Models\StatusHistory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\{VehicleStoreRequest, VehicleUpdateRequest};
-use App\Models\StatusHistory;
 
 class VehicleController extends Controller
 {
@@ -26,9 +27,9 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        $veiculos = Vehicle::orderBy('created_at', 'desc')->paginate(20);
+        $veiculos = Vehicle::select(['chassi', 'marca', 'modelo', 'placa', 'status'])->orderBy('created_at', 'desc')->paginate(20);
 
-        return view('dashboard.veiculos.index', [
+        return Inertia::render('Dashboard/Veiculos/Index', [
             'veiculos' => $veiculos,
         ]);
     }
@@ -40,7 +41,7 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        return view('dashboard.veiculos.form');
+        return Inertia::render('Dashboard/Veiculos/Form');
     }
 
     /**
@@ -55,16 +56,16 @@ class VehicleController extends Controller
             DB::beginTransaction();
 
             $vehicle = new Vehicle();
-            $vehicle->create($request->all());
+            $vehicle->create($request->validated());
 
             DB::commit();
 
-            return $this->typeReturn($request, 'Veículo cadastrado com sucesso');
+            return redirect()->route('veiculos.index')->with('message', 'Veículo cadastrado com sucesso');
 
         }catch(\Exception $e){
             DB::rollback();
 
-            return redirect()->route('veiculos.new')
+            return redirect()->route('veiculos.index')
             ->with('message', 'Não foi possível completar o registro ocorreu um erro inesperado.');
         }
     }
@@ -88,8 +89,8 @@ class VehicleController extends Controller
      */
     public function edit(Vehicle $vehicle)
     {
-        return view('dashboard.veiculos.form', [
-            'vehicle' => $vehicle,
+        return Inertia::render('Dashboard/Veiculos/Form', [
+            'vehicle' => $vehicle->only(['chassi', 'marca', 'modelo', 'placa', 'status']),
         ]);
     }
 
@@ -118,16 +119,16 @@ class VehicleController extends Controller
                 }
             }
 
-            $vehicle->update($request->all());
+            $vehicle->update($request->validated());
 
             DB::commit();
 
-            return $this->typeReturn($request, 'Veículo atualizado com sucesso');
+            return redirect()->route('veiculos.index')->with('message', 'Veículo atualizado com sucesso');
 
         }catch(\Exception $e){
             DB::rollback();
 
-            return redirect()->route('veiculos.new')
+            return redirect()->route('veiculos.index')
             ->with('message', 'Não foi possível completar a atualização ocorreu um erro inesperado.');
         }
     }
@@ -141,15 +142,6 @@ class VehicleController extends Controller
     public function destroy(Vehicle $vehicle)
     {
         $vehicle->delete();
-        return redirect()->route('veiculos')->with('message', 'O veículo foi deletado com sucesso');
-    }
-
-
-    public function typeReturn($request, $message){
-        if($request->getContentType() == 'json'){
-            return response()->json($message);
-        }
-
-        return redirect()->route('veiculos')->with('message', $message);
+        return redirect()->route('veiculos.index')->with('message', 'O veículo foi deletado com sucesso');
     }
 }

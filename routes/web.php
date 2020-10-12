@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,20 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('vehicles', 'VehicleController', [
-    'names' => [
-        'index' => 'veiculos',
-        'create' => 'veiculos.create',
-        'store' => 'veiculos.new',
-        'edit' => 'veiculos.edit',
-        'update' => 'veiculos.update'
-    ],
-])->middleware('auth');
+Route::get('/', 'PagesController@index');
+Route::get('/recursos', 'PagesController@recursos');
+Route::get('/precos', 'PagesController@precos');
+Route::get('/clientes', 'PagesController@clientes');
+
+
+
+
+Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function() {
+    Route::get('/', 'HomeController@index')->name('home');
+    Route::resource('/veiculos', 'VehicleController')->parameters(['veiculos' => 'vehicle'])->middleware('auth');
+});

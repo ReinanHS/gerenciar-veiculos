@@ -41,7 +41,7 @@ Desenvolver um sistema em Laravel para gerenciar os veículos de uma empresa, co
 Clone o repositório no meu Github
 `git clone https://github.com/ReinanHS/gerenciar-veiculos.git`
 
-Após ter feito o clone entre as pastas do projeto e instalar as dependências:
+Após fazer o clone vá para o diretório do projeto para instalar as dependências:
 ```sh
 composer install
 npm install
@@ -60,3 +60,8 @@ php artisan migrate:refresh
 ```
 
 Antes de abrir o site no navegador, configure um host virtual apontando para a pasta `/public`
+
+## Prints
+
+![Home](https://i.imgur.com/H1Mj2eA.jpg)
+![List](https://i.imgur.com/jMyobp0.png)
