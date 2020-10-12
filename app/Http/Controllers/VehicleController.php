@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\Vehicle;
+use App\Models\StatusHistory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\{VehicleStoreRequest, VehicleUpdateRequest};
-use App\Models\StatusHistory;
 
 class VehicleController extends Controller
 {
@@ -28,7 +29,7 @@ class VehicleController extends Controller
     {
         $veiculos = Vehicle::orderBy('created_at', 'desc')->paginate(20);
 
-        return view('dashboard.veiculos.index', [
+        return Inertia::render('Dashboard/Veiculos/Index', [
             'veiculos' => $veiculos,
         ]);
     }
@@ -40,7 +41,7 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        return view('dashboard.veiculos.form');
+        return Inertia::render('Dashboard/Veiculos/Form');
     }
 
     /**
@@ -88,7 +89,7 @@ class VehicleController extends Controller
      */
     public function edit(Vehicle $vehicle)
     {
-        return view('dashboard.veiculos.form', [
+        return Inertia::render('Dashboard/Veiculos/Form', [
             'vehicle' => $vehicle,
         ]);
     }

@@ -66,10 +66,15 @@
                                 class="font-medium hover:text-gray-900 transition duration-150 ease-in-out"
                                 >{{ link.name }}</inertia-link
                             >
-                            <a
+                            <a v-show="!$page.props.auth.user"
                                 href="/login"
                                 class="ml-8 font-medium text-indigo-600 hover:text-indigo-900 transition duration-150 ease-in-out"
                                 >Login</a
+                            >
+                            <inertia-link v-if="$page.props.auth.user"
+                                href="/dashboard"
+                                class="ml-8 font-medium text-indigo-600 hover:text-indigo-900 transition duration-150 ease-in-out"
+                                >{{ $page.props.auth.user.name }}</inertia-link
                             >
                         </div>
                     </nav>

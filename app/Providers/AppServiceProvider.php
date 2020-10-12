@@ -42,6 +42,7 @@ class AppServiceProvider extends ServiceProvider
                         'id' => Auth::user()->id,
                         'name' => Auth::user()->name,
                         'email' => Auth::user()->email,
+                        'avatar' => Auth::user()->avatar,
                     ] : null,
                 ];
             },

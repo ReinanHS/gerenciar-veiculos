@@ -1,7 +1,7 @@
 <template>
     <landing
         image="https://cdn.pixabay.com/photo/2020/05/10/10/09/fleet-5153286_1280.jpg"
-        full-page="true"
+        :full-page="true"
     >
         <main
             class="mt-10 mx-auto max-w-screen-xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28"
@@ -27,7 +27,7 @@
                 >
                     <div class="rounded-md shadow">
                         <a
-                            href="/home"
+                            href="/dashboard"
                             class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10"
                         >
                             Iniciar
