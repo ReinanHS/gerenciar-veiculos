@@ -18,6 +18,9 @@ Auth::routes();
 
 
 Route::get('/', 'PagesController@index');
+Route::get('/recursos', 'PagesController@recursos');
+Route::get('/precos', 'PagesController@precos');
+Route::get('/clientes', 'PagesController@clientes');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
