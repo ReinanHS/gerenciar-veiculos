@@ -30,6 +30,7 @@ Vue.use(VueAWN, {
         "async-block": "Carregando",
     },
 })
+Vue.prototype.$route = (...args) => route(...args).url()
 
 const el = document.getElementById('app')
 

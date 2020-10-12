@@ -1973,6 +1973,270 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Shared_Dashboard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Shared/Dashboard */ "./resources/js/Shared/Dashboard.vue");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1981,8 +2245,124 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["errors", "vehicle"],
   components: {
     Dashboard: _Shared_Dashboard__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  mounted: function mounted() {
+    this.inputs = _objectSpread(_objectSpread({}, this.inputs), this.vehicle);
+
+    if (this.inputs.placa != '') {
+      this.validarPlaca();
+    }
+  },
+  data: function data() {
+    return {
+      oldStatus: "",
+      inputs: {
+        chassi: "",
+        status: "disponível",
+        marca: "",
+        modelo: "",
+        placa: "",
+        observacao: ""
+      },
+      consulta: false
+    };
+  },
+  watch: {
+    "inputs.placa": function inputsPlaca(val) {
+      this.inputs.placa = val.toUpperCase();
+      this.validarPlaca();
+    },
+    "inputs.chassi": function inputsChassi() {
+      this.validarChassi();
+    },
+    "inputs.marca": function inputsMarca() {
+      this.validarMarca();
+    },
+    "inputs.modelo": function inputsModelo() {
+      this.validarModelo();
+    }
+  },
+  methods: {
+    validation: function validation() {
+      var validation_result = [this.validarPlaca(), this.validarChassi(), this.validarMarca(), this.validarModelo(), this.validarObservacao()];
+
+      if (validation_result.findIndex(function (i) {
+        return i == true;
+      }) == -1) {
+        this.$inertia.put(this.$route("veiculos.update", this.vehicle.placa), this.inputs);
+      }
+    },
+    validarPlaca: function validarPlaca() {
+      var _this = this;
+
+      this.errors.placa = "";
+
+      if (!isNaN(parseInt(this.inputs.placa.slice(0, 3))) || isNaN(parseInt(this.inputs.placa.slice(3, 8))) || this.inputs.placa.length != 7) {
+        this.errors.placa = "Esta é uma placa inválida";
+        return true;
+      }
+
+      window.axios.get("https://apicarros.com/v1/consulta/".concat(this.inputs.placa, "/json")).then(function (result) {
+        var info = result.data;
+        _this.consulta = info;
+
+        if (_this.inputs.modelo == "") {
+          _this.inputs.modelo = info.modelo;
+        }
+
+        if (_this.inputs.marca == "") {
+          _this.inputs.marca = info.marca;
+        }
+      });
+      return false;
+    },
+    validarChassi: function validarChassi() {
+      this.errors.chassi = "";
+
+      if (this.inputs.chassi.length != 17) {
+        this.errors.chassi = "Esse não é um chassi inválido";
+        return true;
+      }
+
+      return false;
+    },
+    validarMarca: function validarMarca() {
+      this.errors.marca = "";
+
+      if (this.inputs.marca.length < 4) {
+        this.errors.marca = "Esse marca não é inválida";
+        return true;
+      }
+
+      return false;
+    },
+    validarModelo: function validarModelo() {
+      this.errors.modelo = "";
+
+      if (this.inputs.modelo.length < 4) {
+        this.errors.modelo = "Esse modelo não é inválido";
+        return true;
+      }
+
+      return false;
+    },
+    validarObservacao: function validarObservacao() {
+      if (this.action == "put" && this.oldStatus != this.inputs.status) {
+        this.errors.observacao = "";
+
+        if (this.inputs.observacao.length < 7) {
+          this.errors.observacao = "Essa observação é inválida";
+          return true;
+        }
+
+        return false;
+      }
+
+      return false;
+    }
   }
 });
 
@@ -1998,6 +2378,28 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Shared_Dashboard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Shared/Dashboard */ "./resources/js/Shared/Dashboard.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2214,7 +2616,7 @@ __webpack_require__.r(__webpack_exports__);
 
         var searchTerm = _this.removeAcentos(_this.filter.pesquisa.toLowerCase());
 
-        if (_this.filter.status == 'all') {
+        if (_this.filter.status == "all") {
           return placa.includes(searchTerm) || modelo.includes(searchTerm) || marca.includes(searchTerm) || chassi.includes(searchTerm) || status.includes(searchTerm);
         } else {
           return (placa.includes(searchTerm) || modelo.includes(searchTerm) || marca.includes(searchTerm) || chassi.includes(searchTerm)) && veiculo.status == _this.filter.status;
@@ -22059,7 +22461,646 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("dashboard", [_c("h1", [_vm._v("Create")])])
+  return _c("dashboard", [
+    _c("div", { staticClass: "mt-8" }, [
+      _c("h4", { staticClass: "text-gray-600" }, [_vm._v("Formulário")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "mt-4" }, [
+        _c("div", { staticClass: "p-6 bg-white rounded-md shadow-md" }, [
+          _c(
+            "h2",
+            { staticClass: "text-lg text-gray-700 font-semibold capitalize" },
+            [_vm._v("\n                    Criar veículo\n                ")]
+          ),
+          _vm._v(" "),
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  $event.stopPropagation()
+                  return _vm.validation($event)
+                }
+              }
+            },
+            [
+              _c(
+                "div",
+                { staticClass: "grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4" },
+                [
+                  _c("div", [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "text-gray-700",
+                        attrs: { for: "placa-input" }
+                      },
+                      [_vm._v("Placa")]
+                    ),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.inputs.placa,
+                          expression: "inputs.placa"
+                        }
+                      ],
+                      staticClass:
+                        "form-input w-full mt-2 rounded-md focus:border-indigo-600",
+                      class: {
+                        "is-invalid": _vm.errors.placa,
+                        "is-valid": _vm.inputs.placa.length == 7
+                      },
+                      attrs: {
+                        name: "placa",
+                        required: "",
+                        autofocus: "",
+                        id: "placa-input",
+                        "aria-describedby": "placaHelp",
+                        type: "text",
+                        placeholder: "Placa"
+                      },
+                      domProps: { value: _vm.inputs.placa },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.inputs, "placa", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.placa
+                      ? _c(
+                          "span",
+                          {
+                            staticClass:
+                              "mt-2 mb-2 text-center text-sm leading-5 text-gray-600",
+                            attrs: { role: "alert" }
+                          },
+                          [_c("strong", [_vm._v(_vm._s(_vm.errors.placa))])]
+                        )
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c("div", [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "text-gray-700",
+                        attrs: { for: "modelo-input" }
+                      },
+                      [_vm._v("Modelo")]
+                    ),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.inputs.modelo,
+                          expression: "inputs.modelo"
+                        }
+                      ],
+                      staticClass:
+                        "form-input w-full mt-2 rounded-md focus:border-indigo-600",
+                      class: {
+                        "is-invalid": _vm.errors.modelo,
+                        "is-valid": _vm.inputs.modelo.length > 4
+                      },
+                      attrs: {
+                        name: "modelo",
+                        required: "",
+                        id: "modelo-input",
+                        "aria-describedby": "modeloHelp",
+                        type: "text",
+                        placeholder: "Modelo"
+                      },
+                      domProps: { value: _vm.inputs.modelo },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.inputs, "modelo", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.modelo
+                      ? _c(
+                          "span",
+                          {
+                            staticClass:
+                              "mt-2 mb-2 text-center text-sm leading-5 text-gray-600",
+                            attrs: { role: "alert" }
+                          },
+                          [_c("strong", [_vm._v(_vm._s(_vm.errors.modelo))])]
+                        )
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c("div", [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "text-gray-700",
+                        attrs: { for: "marca-input" }
+                      },
+                      [_vm._v("Marca")]
+                    ),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.inputs.marca,
+                          expression: "inputs.marca"
+                        }
+                      ],
+                      staticClass:
+                        "form-input w-full mt-2 rounded-md focus:border-indigo-600",
+                      class: {
+                        "is-invalid": _vm.errors.marca,
+                        "is-valid": _vm.inputs.marca.length > 4
+                      },
+                      attrs: {
+                        name: "marca",
+                        required: "",
+                        id: "marca-input",
+                        "aria-describedby": "marcaHelp",
+                        type: "text",
+                        placeholder: "Marca"
+                      },
+                      domProps: { value: _vm.inputs.marca },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.inputs, "marca", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.marca
+                      ? _c(
+                          "span",
+                          {
+                            staticClass:
+                              "mt-2 mb-2 text-center text-sm leading-5 text-gray-600",
+                            attrs: { role: "alert" }
+                          },
+                          [_c("strong", [_vm._v(_vm._s(_vm.errors.marca))])]
+                        )
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c("div", [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "text-gray-700",
+                        attrs: { for: "passwordConfirmation" }
+                      },
+                      [_vm._v("Chassi")]
+                    ),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.inputs.chassi,
+                          expression: "inputs.chassi"
+                        }
+                      ],
+                      staticClass:
+                        "form-input w-full mt-2 rounded-md focus:border-indigo-600",
+                      class: {
+                        "is-invalid": _vm.errors.chassi,
+                        "is-valid": _vm.inputs.chassi.length == 17
+                      },
+                      attrs: {
+                        name: "chassi",
+                        required: "",
+                        id: "chassi-input",
+                        "aria-describedby": "chassiHelp",
+                        type: "text",
+                        placeholder: "Marca"
+                      },
+                      domProps: { value: _vm.inputs.chassi },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.inputs, "chassi", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.chassi
+                      ? _c(
+                          "span",
+                          {
+                            staticClass:
+                              "mt-2 mb-2 text-center text-sm leading-5 text-gray-600",
+                            attrs: { role: "alert" }
+                          },
+                          [_c("strong", [_vm._v(_vm._s(_vm.errors.chassi))])]
+                        )
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c("div", [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "text-gray-700",
+                        attrs: { for: "status-select" }
+                      },
+                      [_vm._v("Status")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "relative" }, [
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.inputs.status,
+                              expression: "inputs.status"
+                            }
+                          ],
+                          staticClass:
+                            "appearance-none h-full rounded-r appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:border-l focus:border-r focus:bg-white focus:border-gray-500",
+                          attrs: { id: "status-select", name: "status" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.inputs,
+                                "status",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { value: "disponível" } }, [
+                            _vm._v(
+                              "\n                                        Disponível\n                                    "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "quebrado" } }, [
+                            _vm._v(
+                              "\n                                        Quebrado\n                                    "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "manutenção" } }, [
+                            _vm._v(
+                              "\n                                        Manutenção\n                                    "
+                            )
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+                        },
+                        [
+                          _c(
+                            "svg",
+                            {
+                              staticClass: "fill-current h-4 w-4",
+                              attrs: {
+                                xmlns: "http://www.w3.org/2000/svg",
+                                viewBox: "0 0 20 20"
+                              }
+                            },
+                            [
+                              _c("path", {
+                                attrs: {
+                                  d:
+                                    "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                                }
+                              })
+                            ]
+                          )
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _vm.errors.chassi
+                      ? _c(
+                          "span",
+                          {
+                            staticClass:
+                              "mt-2 mb-2 text-center text-sm leading-5 text-gray-600",
+                            attrs: { role: "alert" }
+                          },
+                          [_c("strong", [_vm._v(_vm._s(_vm.errors.chassi))])]
+                        )
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _vm.vehicle.status != _vm.inputs.status
+                    ? _c("div", [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "text-gray-700",
+                            attrs: { for: "observacao-input" }
+                          },
+                          [_vm._v("Observação do status")]
+                        ),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.inputs.observacao,
+                              expression: "inputs.observacao"
+                            }
+                          ],
+                          staticClass:
+                            "form-input w-full mt-2 rounded-md focus:border-indigo-600",
+                          class: {
+                            "is-invalid": _vm.errors.chassi,
+                            "is-valid": _vm.inputs.chassi.length > 5
+                          },
+                          attrs: {
+                            name: "observacao",
+                            required: "",
+                            id: "observacao-input",
+                            "aria-describedby": "observacaoHelp",
+                            type: "text",
+                            placeholder: "Observação do status"
+                          },
+                          domProps: { value: _vm.inputs.observacao },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.inputs,
+                                "observacao",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm.errors.observacao
+                          ? _c(
+                              "span",
+                              {
+                                staticClass:
+                                  "mt-2 mb-2 text-center text-sm leading-5 text-gray-600",
+                                attrs: { role: "alert" }
+                              },
+                              [
+                                _c("strong", [
+                                  _vm._v(_vm._s(_vm.errors.observacao))
+                                ])
+                              ]
+                            )
+                          : _vm._e()
+                      ])
+                    : _vm._e()
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "flex justify-end mt-4" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "px-4 py-2 bg-gray-800 text-gray-200 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
+                  },
+                  [
+                    _vm._v(
+                      "\n                            Save\n                        "
+                    )
+                  ]
+                )
+              ])
+            ]
+          )
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _vm.consulta
+      ? _c(
+          "div",
+          { staticClass: "mt-4 bg-white shadow overflow-hidden sm:rounded-lg" },
+          [
+            _c(
+              "div",
+              { staticClass: "px-4 py-5 border-b border-gray-200 sm:px-6" },
+              [
+                _c(
+                  "h3",
+                  {
+                    staticClass: "text-lg leading-6 font-medium text-gray-900"
+                  },
+                  [
+                    _vm._v(
+                      "\n                Informações do Detran\n            "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    staticClass:
+                      "mt-1 max-w-2xl text-sm leading-5 text-gray-500"
+                  },
+                  [
+                    _vm._v(
+                      "\n                Personal details and application.\n            "
+                    )
+                  ]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", [
+              _c("dl", [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
+                  },
+                  [
+                    _c(
+                      "dt",
+                      {
+                        staticClass:
+                          "text-sm leading-5 font-medium text-gray-500"
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Municipio\n                    "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "dd",
+                      {
+                        staticClass:
+                          "mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2"
+                      },
+                      [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(_vm.consulta.municipio) +
+                            "\n                    "
+                        )
+                      ]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
+                  },
+                  [
+                    _c(
+                      "dt",
+                      {
+                        staticClass:
+                          "text-sm leading-5 font-medium text-gray-500"
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Cor\n                    "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "dd",
+                      {
+                        staticClass:
+                          "mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2"
+                      },
+                      [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(_vm.consulta.cor) +
+                            "\n                    "
+                        )
+                      ]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
+                  },
+                  [
+                    _c(
+                      "dt",
+                      {
+                        staticClass:
+                          "text-sm leading-5 font-medium text-gray-500"
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Estado\n                    "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "dd",
+                      {
+                        staticClass:
+                          "mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2"
+                      },
+                      [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(_vm.consulta.uf) +
+                            "\n                    "
+                        )
+                      ]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
+                  },
+                  [
+                    _c(
+                      "dt",
+                      {
+                        staticClass:
+                          "text-sm leading-5 font-medium text-gray-500"
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Ano do Modelo\n                    "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "dd",
+                      {
+                        staticClass:
+                          "mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2"
+                      },
+                      [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(_vm.consulta.anoModelo) +
+                            "\n                    "
+                        )
+                      ]
+                    )
+                  ]
+                )
+              ])
+            ])
+          ]
+        )
+      : _vm._e()
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -22478,11 +23519,16 @@ var render = function() {
                             },
                             [
                               _c(
-                                "a",
+                                "inertia-link",
                                 {
                                   staticClass:
                                     "text-indigo-600 hover:text-indigo-900",
-                                  attrs: { href: "#" }
+                                  attrs: {
+                                    href: _vm.$route(
+                                      "veiculos.edit",
+                                      veiculo.placa
+                                    )
+                                  }
                                 },
                                 [_vm._v("Editar")]
                               ),
@@ -22500,11 +23546,75 @@ var render = function() {
                                   )
                                 ]
                               )
-                            ]
+                            ],
+                            1
                           )
                         ])
                       }),
                       0
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between"
+                  },
+                  [
+                    _c(
+                      "span",
+                      { staticClass: "text-xs xs:text-sm text-gray-900" },
+                      [
+                        _vm._v(
+                          "Mostrando " +
+                            _vm._s(_vm.veiculos.current_page) +
+                            " de " +
+                            _vm._s(_vm.veiculos.last_page) +
+                            " no total de " +
+                            _vm._s(_vm.veiculos.total) +
+                            " veículos"
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "inline-flex mt-2 xs:mt-0" },
+                      [
+                        _vm.veiculos.prev_page_url
+                          ? _c(
+                              "inertia-link",
+                              {
+                                staticClass:
+                                  "text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l",
+                                attrs: { href: _vm.veiculos.prev_page_url }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Anterior"
+                                )
+                              ]
+                            )
+                          : _vm._e(),
+                        _vm.veiculos.next_page_url
+                          ? _c(
+                              "inertia-link",
+                              {
+                                staticClass:
+                                  "text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r",
+                                attrs: { href: _vm.veiculos.next_page_url }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Próximo\n                            "
+                                )
+                              ]
+                            )
+                          : _vm._e()
+                      ],
+                      1
                     )
                   ]
                 )
@@ -33354,6 +34464,11 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vue_awesome_notifications__WEBPAC
     "async-block": "Carregando"
   }
 });
+
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$route = function () {
+  return route.apply(void 0, arguments).url();
+};
+
 var el = document.getElementById('app');
 new vue__WEBPACK_IMPORTED_MODULE_1___default.a({
   render: function render(h) {

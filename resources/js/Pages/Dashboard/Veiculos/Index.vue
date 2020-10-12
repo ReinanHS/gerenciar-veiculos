@@ -160,10 +160,10 @@
                                     <td
                                         class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium"
                                     >
-                                        <a
-                                            href="#"
+                                        <inertia-link
+                                            :href="$route('veiculos.edit', veiculo.placa)"
                                             class="text-indigo-600 hover:text-indigo-900"
-                                            >Editar</a
+                                            >Editar</inertia-link
                                         >
                                         <button
                                             href="#"
@@ -175,6 +175,28 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <div
+                            class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between"
+                        >
+                            <span class="text-xs xs:text-sm text-gray-900"
+                                >Mostrando {{ veiculos.current_page }} de {{ veiculos.last_page }} no total de {{ veiculos.total }} veículos</span
+                            >
+                            <div class="inline-flex mt-2 xs:mt-0">
+                                <inertia-link
+                                    v-if="veiculos.prev_page_url"
+                                    :href="veiculos.prev_page_url"
+                                    class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l"
+                                >
+                                    Anterior</inertia-link
+                                ><inertia-link
+                                    v-if="veiculos.next_page_url"
+                                    :href="veiculos.next_page_url"
+                                    class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r"
+                                >
+                                    Próximo
+                                </inertia-link>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -200,37 +222,46 @@ export default {
     },
     computed: {
         filtered() {
-            return this.veiculos.data.filter((veiculo) => {
-                const placa = this.removeAcentos(veiculo.placa.toLowerCase());
-                const modelo = this.removeAcentos(veiculo.modelo.toLowerCase());
-                const marca = this.removeAcentos(veiculo.marca.toLowerCase());
-                const status = this.removeAcentos(veiculo.status.toLowerCase());
-                const chassi = this.removeAcentos(veiculo.chassi.toLowerCase());
-                const searchTerm = this.removeAcentos(
-                    this.filter.pesquisa.toLowerCase()
-                );
-
-                if(this.filter.status == 'all'){
-                    return (
-                        placa.includes(searchTerm) ||
-                        modelo.includes(searchTerm) ||
-                        marca.includes(searchTerm) ||
-                        chassi.includes(searchTerm) ||
-                        status.includes(searchTerm)
+            return this.veiculos.data
+                .filter((veiculo) => {
+                    const placa = this.removeAcentos(
+                        veiculo.placa.toLowerCase()
                     );
-                }
-                else{
-                    return (
-                        (
+                    const modelo = this.removeAcentos(
+                        veiculo.modelo.toLowerCase()
+                    );
+                    const marca = this.removeAcentos(
+                        veiculo.marca.toLowerCase()
+                    );
+                    const status = this.removeAcentos(
+                        veiculo.status.toLowerCase()
+                    );
+                    const chassi = this.removeAcentos(
+                        veiculo.chassi.toLowerCase()
+                    );
+                    const searchTerm = this.removeAcentos(
+                        this.filter.pesquisa.toLowerCase()
+                    );
+
+                    if (this.filter.status == "all") {
+                        return (
                             placa.includes(searchTerm) ||
                             modelo.includes(searchTerm) ||
                             marca.includes(searchTerm) ||
-                            chassi.includes(searchTerm)
-                        ) &&
-                        veiculo.status == this.filter.status
-                    );
-                }
-            }).slice(0,this.filter.paginacao);
+                            chassi.includes(searchTerm) ||
+                            status.includes(searchTerm)
+                        );
+                    } else {
+                        return (
+                            (placa.includes(searchTerm) ||
+                                modelo.includes(searchTerm) ||
+                                marca.includes(searchTerm) ||
+                                chassi.includes(searchTerm)) &&
+                            veiculo.status == this.filter.status
+                        );
+                    }
+                })
+                .slice(0, this.filter.paginacao);
         },
     },
     methods: {
