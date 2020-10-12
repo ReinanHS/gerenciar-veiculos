@@ -2399,6 +2399,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Shared_Dashboard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Shared/Dashboard */ "./resources/js/Shared/Dashboard.vue");
+/* harmony import */ var _components_ModalDelete__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/components/ModalDelete */ "./resources/js/components/ModalDelete.vue");
+//
 //
 //
 //
@@ -2620,10 +2622,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["veiculos"],
   components: {
-    Dashboard: _Shared_Dashboard__WEBPACK_IMPORTED_MODULE_0__["default"]
+    Dashboard: _Shared_Dashboard__WEBPACK_IMPORTED_MODULE_0__["default"],
+    ModalDelete: _components_ModalDelete__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
@@ -2660,6 +2664,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    modalDelete: function modalDelete(veiculo) {
+      this.$refs.modal.showModal(veiculo);
+    },
     placaFormat: function placaFormat(placa) {
       return placa.slice(0, 3).toUpperCase() + "-" + placa.slice(3);
     },
@@ -3475,6 +3482,125 @@ __webpack_require__.r(__webpack_exports__);
       isOpen: false,
       dropdownOpen: false
     };
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModalDelete.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ModalDelete.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "ModalDelete",
+  data: function data() {
+    return {
+      isOpen: false,
+      veiculo: false
+    };
+  },
+  methods: {
+    showModal: function showModal(veiculo) {
+      this.veiculo = veiculo;
+      this.isOpen = true;
+    }
   }
 });
 
@@ -23213,528 +23339,552 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("dashboard", [
-    _c("div", { staticClass: "flex flex-col" }, [
-      _c("div", { staticClass: "mt-3 mb-3 flex flex-col sm:flex-row" }, [
-        _c("div", { staticClass: "flex" }, [
-          _c("div", { staticClass: "relative" }, [
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.filter.paginacao,
-                    expression: "filter.paginacao"
-                  }
-                ],
-                staticClass:
-                  "appearance-none h-full rounded-l border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
-                on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.$set(
-                      _vm.filter,
-                      "paginacao",
-                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                    )
-                  }
-                }
-              },
-              [
-                _c("option", { attrs: { value: "5" } }, [_vm._v("5")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "10" } }, [_vm._v("10")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "20" } }, [_vm._v("20")])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
-              },
-              [
-                _c(
-                  "svg",
-                  {
-                    staticClass: "fill-current h-4 w-4",
-                    attrs: {
-                      xmlns: "http://www.w3.org/2000/svg",
-                      viewBox: "0 0 20 20"
-                    }
-                  },
-                  [
-                    _c("path", {
-                      attrs: {
-                        d:
-                          "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-                      }
-                    })
-                  ]
-                )
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "relative" }, [
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.filter.status,
-                    expression: "filter.status"
-                  }
-                ],
-                staticClass:
-                  "appearance-none h-full rounded-r border-t sm:rounded-r-none sm:border-r-0 border-r border-b block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:border-l focus:border-r focus:bg-white focus:border-gray-500",
-                on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.$set(
-                      _vm.filter,
-                      "status",
-                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                    )
-                  }
-                }
-              },
-              [
-                _c("option", { attrs: { value: "all" } }, [_vm._v("Todos")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "disponível" } }, [
-                  _vm._v("Disponível")
-                ]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "quebrado" } }, [
-                  _vm._v("Quebrado")
-                ]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "manutenção" } }, [
-                  _vm._v("Manutenção")
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
-              },
-              [
-                _c(
-                  "svg",
-                  {
-                    staticClass: "fill-current h-4 w-4",
-                    attrs: {
-                      xmlns: "http://www.w3.org/2000/svg",
-                      viewBox: "0 0 20 20"
-                    }
-                  },
-                  [
-                    _c("path", {
-                      attrs: {
-                        d:
-                          "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-                      }
-                    })
-                  ]
-                )
-              ]
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "block relative mt-2 sm:mt-0" }, [
-          _c(
-            "span",
-            { staticClass: "absolute inset-y-0 left-0 flex items-center pl-2" },
-            [
+  return _c(
+    "dashboard",
+    [
+      _c("div", { staticClass: "flex flex-col" }, [
+        _c("div", { staticClass: "mt-3 mb-3 flex flex-col sm:flex-row" }, [
+          _c("div", { staticClass: "flex" }, [
+            _c("div", { staticClass: "relative" }, [
               _c(
-                "svg",
+                "select",
                 {
-                  staticClass: "h-4 w-4 fill-current text-gray-500",
-                  attrs: { viewBox: "0 0 24 24" }
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.filter.paginacao,
+                      expression: "filter.paginacao"
+                    }
+                  ],
+                  staticClass:
+                    "appearance-none h-full rounded-l border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.filter,
+                        "paginacao",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    }
+                  }
                 },
                 [
-                  _c("path", {
-                    attrs: {
-                      d:
-                        "M10 4a6 6 0 100 12 6 6 0 000-12zm-8 6a8 8 0 1114.32 4.906l5.387 5.387a1 1 0 01-1.414 1.414l-5.387-5.387A8 8 0 012 10z"
-                    }
-                  })
+                  _c("option", { attrs: { value: "5" } }, [_vm._v("5")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "10" } }, [_vm._v("10")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "20" } }, [_vm._v("20")])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "fill-current h-4 w-4",
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 20 20"
+                      }
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d:
+                            "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                        }
+                      })
+                    ]
+                  )
                 ]
               )
-            ]
-          ),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.filter.pesquisa,
-                expression: "filter.pesquisa"
-              }
-            ],
-            staticClass:
-              "appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none",
-            attrs: { placeholder: "Pesquisa" },
-            domProps: { value: _vm.filter.pesquisa },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.filter, "pesquisa", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "block relative mt-2 sm:mt-0 ml-4" },
-          [
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "relative" }, [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.filter.status,
+                      expression: "filter.status"
+                    }
+                  ],
+                  staticClass:
+                    "appearance-none h-full rounded-r border-t sm:rounded-r-none sm:border-r-0 border-r border-b block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:border-l focus:border-r focus:bg-white focus:border-gray-500",
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.filter,
+                        "status",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "all" } }, [_vm._v("Todos")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "disponível" } }, [
+                    _vm._v("Disponível")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "quebrado" } }, [
+                    _vm._v("Quebrado")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "manutenção" } }, [
+                    _vm._v("Manutenção")
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "fill-current h-4 w-4",
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 20 20"
+                      }
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d:
+                            "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                        }
+                      })
+                    ]
+                  )
+                ]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "block relative mt-2 sm:mt-0" }, [
             _c(
-              "inertia-link",
+              "span",
               {
-                staticClass:
-                  "inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-green-400 text-base leading-6 font-medium text-white shadow-sm hover:bg-green-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5",
-                attrs: { href: _vm.$route("veiculos.create") }
-              },
-              [
-                _vm._v(
-                  "\n                    Cadastrar veículo\n                "
-                )
-              ]
-            )
-          ],
-          1
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8" }, [
-        _c(
-          "div",
-          {
-            staticClass:
-              "py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8"
-          },
-          [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "shadow overflow-hidden border-b border-gray-200 sm:rounded-lg"
+                staticClass: "absolute inset-y-0 left-0 flex items-center pl-2"
               },
               [
                 _c(
-                  "table",
-                  { staticClass: "min-w-full divide-y divide-gray-200" },
+                  "svg",
+                  {
+                    staticClass: "h-4 w-4 fill-current text-gray-500",
+                    attrs: { viewBox: "0 0 24 24" }
+                  },
                   [
-                    _c("thead", [
-                      _c("tr", [
-                        _c(
-                          "th",
-                          {
-                            staticClass:
-                              "px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
-                          },
-                          [
-                            _vm._v(
-                              "\n                                    Nome\n                                "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "th",
-                          {
-                            staticClass:
-                              "px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
-                          },
-                          [
-                            _vm._v(
-                              "\n                                    Informações\n                                "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "th",
-                          {
-                            staticClass:
-                              "px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
-                          },
-                          [
-                            _vm._v(
-                              "\n                                    Status\n                                "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("th", { staticClass: "px-6 py-3 bg-gray-50" })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "tbody",
-                      { staticClass: "bg-white divide-y divide-gray-200" },
-                      _vm._l(_vm.filtered, function(veiculo, index) {
-                        return _c("tr", { key: index }, [
+                    _c("path", {
+                      attrs: {
+                        d:
+                          "M10 4a6 6 0 100 12 6 6 0 000-12zm-8 6a8 8 0 1114.32 4.906l5.387 5.387a1 1 0 01-1.414 1.414l-5.387-5.387A8 8 0 012 10z"
+                      }
+                    })
+                  ]
+                )
+              ]
+            ),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.filter.pesquisa,
+                  expression: "filter.pesquisa"
+                }
+              ],
+              staticClass:
+                "appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none",
+              attrs: { placeholder: "Pesquisa" },
+              domProps: { value: _vm.filter.pesquisa },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.filter, "pesquisa", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "block relative mt-2 sm:mt-0 ml-4" },
+            [
+              _c(
+                "inertia-link",
+                {
+                  staticClass:
+                    "inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-green-400 text-base leading-6 font-medium text-white shadow-sm hover:bg-green-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5",
+                  attrs: { href: _vm.$route("veiculos.create") }
+                },
+                [
+                  _vm._v(
+                    "\n                    Cadastrar veículo\n                "
+                  )
+                ]
+              )
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8" }, [
+          _c(
+            "div",
+            {
+              staticClass:
+                "py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8"
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "shadow overflow-hidden border-b border-gray-200 sm:rounded-lg"
+                },
+                [
+                  _c(
+                    "table",
+                    { staticClass: "min-w-full divide-y divide-gray-200" },
+                    [
+                      _c("thead", [
+                        _c("tr", [
                           _c(
-                            "td",
-                            { staticClass: "px-6 py-4 whitespace-no-wrap" },
+                            "th",
+                            {
+                              staticClass:
+                                "px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+                            },
                             [
-                              _c("div", { staticClass: "flex items-center" }, [
+                              _vm._v(
+                                "\n                                    Nome\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "th",
+                            {
+                              staticClass:
+                                "px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    Informações\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "th",
+                            {
+                              staticClass:
+                                "px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    Status\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("th", { staticClass: "px-6 py-3 bg-gray-50" })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        { staticClass: "bg-white divide-y divide-gray-200" },
+                        _vm._l(_vm.filtered, function(veiculo, index) {
+                          return _c("tr", { key: index }, [
+                            _c(
+                              "td",
+                              { staticClass: "px-6 py-4 whitespace-no-wrap" },
+                              [
                                 _c(
                                   "div",
-                                  { staticClass: "flex-shrink-0 h-10 w-10" },
+                                  { staticClass: "flex items-center" },
                                   [
-                                    _c("img", {
-                                      staticClass: "h-10 w-10 rounded-full",
-                                      attrs: {
-                                        src:
-                                          "https://i.pinimg.com/236x/46/ba/67/46ba6710fab250447be5344c18957a7e.jpg",
-                                        alt: ""
-                                      }
-                                    })
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass: "flex-shrink-0 h-10 w-10"
+                                      },
+                                      [
+                                        _c("img", {
+                                          staticClass: "h-10 w-10 rounded-full",
+                                          attrs: {
+                                            src:
+                                              "https://i.pinimg.com/236x/46/ba/67/46ba6710fab250447be5344c18957a7e.jpg",
+                                            alt: ""
+                                          }
+                                        })
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "ml-4" }, [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "text-sm leading-5 font-medium text-gray-900"
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                                " +
+                                              _vm._s(veiculo.marca) +
+                                              "\n                                            "
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "text-sm leading-5 text-gray-500"
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                                " +
+                                              _vm._s(veiculo.modelo) +
+                                              "\n                                            "
+                                          )
+                                        ]
+                                      )
+                                    ])
+                                  ]
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              { staticClass: "px-6 py-4 whitespace-no-wrap" },
+                              [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "text-sm leading-5 text-gray-900"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                        Placa:\n                                        " +
+                                        _vm._s(_vm.placaFormat(veiculo.placa)) +
+                                        "\n                                    "
+                                    )
                                   ]
                                 ),
                                 _vm._v(" "),
-                                _c("div", { staticClass: "ml-4" }, [
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass:
-                                        "text-sm leading-5 font-medium text-gray-900"
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                                                " +
-                                          _vm._s(veiculo.marca) +
-                                          "\n                                            "
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "text-sm leading-5 text-gray-500"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                        Chassi: " +
+                                        _vm._s(veiculo.chassi) +
+                                        "\n                                    "
+                                    )
+                                  ]
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              { staticClass: "px-6 py-4 whitespace-no-wrap" },
+                              [
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass:
+                                      "px-2 inline-flex text-xs leading-5 font-semibold rounded-full",
+                                    class: {
+                                      "bg-green-100 text-green-800":
+                                        veiculo.status == "disponível",
+                                      "bg-yellow-100 text-yellow-800":
+                                        veiculo.status == "manutenção",
+                                      "bg-red-100 text-red-800":
+                                        veiculo.status == "quebrado"
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                        " +
+                                        _vm._s(veiculo.status) +
+                                        "\n                                    "
+                                    )
+                                  ]
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                staticClass:
+                                  "px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium"
+                              },
+                              [
+                                _c(
+                                  "inertia-link",
+                                  {
+                                    staticClass:
+                                      "text-indigo-600 hover:text-indigo-900",
+                                    attrs: {
+                                      href: _vm.$route(
+                                        "veiculos.edit",
+                                        veiculo.placa
                                       )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass:
-                                        "text-sm leading-5 text-gray-500"
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                                                " +
-                                          _vm._s(veiculo.modelo) +
-                                          "\n                                            "
-                                      )
-                                    ]
-                                  )
-                                ])
-                              ])
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            { staticClass: "px-6 py-4 whitespace-no-wrap" },
-                            [
-                              _c(
-                                "div",
-                                {
-                                  staticClass: "text-sm leading-5 text-gray-900"
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                        Placa:\n                                        " +
-                                      _vm._s(_vm.placaFormat(veiculo.placa)) +
-                                      "\n                                    "
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                {
-                                  staticClass: "text-sm leading-5 text-gray-500"
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                        Chassi: " +
-                                      _vm._s(veiculo.chassi) +
-                                      "\n                                    "
-                                  )
-                                ]
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            { staticClass: "px-6 py-4 whitespace-no-wrap" },
-                            [
-                              _c(
-                                "span",
-                                {
-                                  staticClass:
-                                    "px-2 inline-flex text-xs leading-5 font-semibold rounded-full",
-                                  class: {
-                                    "bg-green-100 text-green-800":
-                                      veiculo.status == "disponível",
-                                    "bg-yellow-100 text-yellow-800":
-                                      veiculo.status == "manutenção",
-                                    "bg-red-100 text-red-800":
-                                      veiculo.status == "quebrado"
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                        " +
-                                      _vm._s(veiculo.status) +
-                                      "\n                                    "
-                                  )
-                                ]
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              staticClass:
-                                "px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium"
-                            },
-                            [
-                              _c(
+                                    }
+                                  },
+                                  [_vm._v("Editar")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "text-red-400 hover:text-red-500",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.modalDelete(veiculo)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                        Deletar\n                                    "
+                                    )
+                                  ]
+                                )
+                              ],
+                              1
+                            )
+                          ])
+                        }),
+                        0
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between"
+                    },
+                    [
+                      _c(
+                        "span",
+                        { staticClass: "text-xs xs:text-sm text-gray-900" },
+                        [
+                          _vm._v(
+                            "Mostrando " +
+                              _vm._s(_vm.veiculos.current_page) +
+                              " de\n                            " +
+                              _vm._s(_vm.veiculos.last_page) +
+                              " no total de\n                            " +
+                              _vm._s(_vm.veiculos.total) +
+                              " veículos"
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "inline-flex mt-2 xs:mt-0" },
+                        [
+                          _vm.veiculos.prev_page_url
+                            ? _c(
                                 "inertia-link",
                                 {
                                   staticClass:
-                                    "text-indigo-600 hover:text-indigo-900",
-                                  attrs: {
-                                    href: _vm.$route(
-                                      "veiculos.edit",
-                                      veiculo.placa
-                                    )
-                                  }
-                                },
-                                [_vm._v("Editar")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "text-red-400 hover:text-red-500",
-                                  attrs: { href: "#" }
+                                    "text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l",
+                                  attrs: { href: _vm.veiculos.prev_page_url }
                                 },
                                 [
                                   _vm._v(
-                                    "\n                                        Deletar\n                                    "
+                                    "\n                                Anterior"
                                   )
                                 ]
                               )
-                            ],
-                            1
-                          )
-                        ])
-                      }),
-                      0
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between"
-                  },
-                  [
-                    _c(
-                      "span",
-                      { staticClass: "text-xs xs:text-sm text-gray-900" },
-                      [
-                        _vm._v(
-                          "Mostrando " +
-                            _vm._s(_vm.veiculos.current_page) +
-                            " de\n                            " +
-                            _vm._s(_vm.veiculos.last_page) +
-                            " no total de\n                            " +
-                            _vm._s(_vm.veiculos.total) +
-                            " veículos"
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "inline-flex mt-2 xs:mt-0" },
-                      [
-                        _vm.veiculos.prev_page_url
-                          ? _c(
-                              "inertia-link",
-                              {
-                                staticClass:
-                                  "text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l",
-                                attrs: { href: _vm.veiculos.prev_page_url }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Anterior"
-                                )
-                              ]
-                            )
-                          : _vm._e(),
-                        _vm.veiculos.next_page_url
-                          ? _c(
-                              "inertia-link",
-                              {
-                                staticClass:
-                                  "text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r",
-                                attrs: { href: _vm.veiculos.next_page_url }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Próximo\n                            "
-                                )
-                              ]
-                            )
-                          : _vm._e()
-                      ],
-                      1
-                    )
-                  ]
-                )
-              ]
-            )
-          ]
-        )
-      ])
-    ])
-  ])
+                            : _vm._e(),
+                          _vm.veiculos.next_page_url
+                            ? _c(
+                                "inertia-link",
+                                {
+                                  staticClass:
+                                    "text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r",
+                                  attrs: { href: _vm.veiculos.next_page_url }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Próximo\n                            "
+                                  )
+                                ]
+                              )
+                            : _vm._e()
+                        ],
+                        1
+                      )
+                    ]
+                  )
+                ]
+              )
+            ]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("modal-delete", { ref: "modal" })
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -25098,6 +25248,217 @@ var render = function() {
   )
 }
 var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModalDelete.vue?vue&type=template&id=3baa54c6&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ModalDelete.vue?vue&type=template&id=3baa54c6& ***!
+  \**************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.isOpen
+    ? _c("div", { staticClass: "fixed z-10 inset-0 overflow-y-auto" }, [
+        _c(
+          "div",
+          {
+            staticClass:
+              "flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+          },
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("span", {
+              staticClass: "hidden sm:inline-block sm:align-middle sm:h-screen"
+            }),
+            _vm._v("​\n        "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full",
+                attrs: {
+                  role: "dialog",
+                  "aria-modal": "true",
+                  "aria-labelledby": "modal-headline"
+                }
+              },
+              [
+                _c(
+                  "div",
+                  { staticClass: "bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4" },
+                  [
+                    _c("div", { staticClass: "sm:flex sm:items-start" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10"
+                        },
+                        [
+                          _c(
+                            "svg",
+                            {
+                              staticClass: "h-6 w-6 text-red-600",
+                              attrs: {
+                                xmlns: "http://www.w3.org/2000/svg",
+                                fill: "none",
+                                viewBox: "0 0 24 24",
+                                stroke: "currentColor"
+                              }
+                            },
+                            [
+                              _c("path", {
+                                attrs: {
+                                  "stroke-linecap": "round",
+                                  "stroke-linejoin": "round",
+                                  "stroke-width": "2",
+                                  d:
+                                    "M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                                }
+                              })
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left"
+                        },
+                        [
+                          _c(
+                            "h3",
+                            {
+                              staticClass:
+                                "text-lg leading-6 font-medium text-gray-900",
+                              attrs: { id: "modal-headline" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                            Desativar veículo\n                        "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "mt-2" }, [
+                            _c(
+                              "p",
+                              {
+                                staticClass: "text-sm leading-5 text-gray-500"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Placa " +
+                                    _vm._s(_vm.veiculo.placa) +
+                                    ". Are you sure you\n                                want to deactivate your account? All of your\n                                data will be permanently removed. This\n                                action cannot be undone.\n                            "
+                                )
+                              ]
+                            )
+                          ])
+                        ]
+                      )
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse"
+                  },
+                  [
+                    _c(
+                      "span",
+                      {
+                        staticClass:
+                          "flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto"
+                      },
+                      [
+                        _c(
+                          "inertia-link",
+                          {
+                            staticClass:
+                              "inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-red-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5",
+                            attrs: {
+                              href: _vm.$route(
+                                "veiculos.destroy",
+                                _vm.veiculo.placa
+                              ),
+                              method: "delete"
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        Desativar\n                    "
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticClass:
+                          "mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto"
+                      },
+                      [
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                _vm.isOpen = !_vm.isOpen
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        Cancelar\n                    "
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ]
+                )
+              ]
+            )
+          ]
+        )
+      ])
+    : _vm._e()
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "fixed inset-0 transition-opacity" }, [
+      _c("div", { staticClass: "absolute inset-0 bg-gray-500 opacity-75" })
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -34696,6 +35057,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Header_vue_vue_type_template_id_1f42fb90___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Header_vue_vue_type_template_id_1f42fb90___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/ModalDelete.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/components/ModalDelete.vue ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ModalDelete_vue_vue_type_template_id_3baa54c6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ModalDelete.vue?vue&type=template&id=3baa54c6& */ "./resources/js/components/ModalDelete.vue?vue&type=template&id=3baa54c6&");
+/* harmony import */ var _ModalDelete_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ModalDelete.vue?vue&type=script&lang=js& */ "./resources/js/components/ModalDelete.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ModalDelete_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ModalDelete_vue_vue_type_template_id_3baa54c6___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ModalDelete_vue_vue_type_template_id_3baa54c6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ModalDelete.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/ModalDelete.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/ModalDelete.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalDelete_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ModalDelete.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModalDelete.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalDelete_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ModalDelete.vue?vue&type=template&id=3baa54c6&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/ModalDelete.vue?vue&type=template&id=3baa54c6& ***!
+  \********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalDelete_vue_vue_type_template_id_3baa54c6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ModalDelete.vue?vue&type=template&id=3baa54c6& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModalDelete.vue?vue&type=template&id=3baa54c6&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalDelete_vue_vue_type_template_id_3baa54c6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalDelete_vue_vue_type_template_id_3baa54c6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -178,7 +178,7 @@
                                             >Editar</inertia-link
                                         >
                                         <button
-                                            href="#"
+                                            @click="modalDelete(veiculo)"
                                             class="text-red-400 hover:text-red-500"
                                         >
                                             Deletar
@@ -215,15 +215,18 @@
                 </div>
             </div>
         </div>
+        <modal-delete ref="modal"></modal-delete>
     </dashboard>
 </template>
 
 <script>
 import Dashboard from "@/Shared/Dashboard";
+import ModalDelete from "@/components/ModalDelete";
 export default {
     props: ["veiculos"],
     components: {
         Dashboard,
+        ModalDelete,
     },
     data() {
         return {
@@ -279,6 +282,9 @@ export default {
         },
     },
     methods: {
+        modalDelete: function (veiculo) {
+            this.$refs.modal.showModal(veiculo);
+        },
         placaFormat: function (placa) {
             return placa.slice(0, 3).toUpperCase() + "-" + placa.slice(3);
         },
