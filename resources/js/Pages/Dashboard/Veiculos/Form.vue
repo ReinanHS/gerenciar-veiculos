@@ -5,7 +5,7 @@
             <div class="mt-4">
                 <div class="p-6 bg-white rounded-md shadow-md">
                     <h2 class="text-lg text-gray-700 font-semibold capitalize">
-                        Criar veículo
+                        Gerenciamento de veículos
                     </h2>
                     <form @submit.prevent.stop="validation">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
@@ -148,14 +148,14 @@
                                     </div>
                                 </div>
                                 <span
-                                    v-if="errors.chassi"
+                                    v-if="errors.status"
                                     class="mt-2 mb-2 text-center text-sm leading-5 text-gray-600"
                                     role="alert"
                                 >
-                                    <strong>{{ errors.chassi }}</strong>
+                                    <strong>{{ errors.status }}</strong>
                                 </span>
                             </div>
-                            <div v-if="vehicle.status != inputs.status">
+                            <div v-if="vehicle.status != inputs.status && $page.url != '/dashboard/veiculos/create'">
                                 <label
                                     class="text-gray-700"
                                     for="observacao-input"
@@ -163,8 +163,8 @@
                                 ><input
                                     class="form-input w-full mt-2 rounded-md focus:border-indigo-600"
                                     :class="{
-                                        'is-invalid': errors.chassi,
-                                        'is-valid': inputs.chassi.length > 5,
+                                        'is-invalid': errors.observacao,
+                                        'is-valid': inputs.observacao.length > 7,
                                     }"
                                     v-model="inputs.observacao"
                                     name="observacao"
@@ -265,7 +265,24 @@
 <script>
 import Dashboard from "@/Shared/Dashboard";
 export default {
-    props: ["errors", "vehicle"],
+    props: {
+        errors: {
+            type: Object,
+        },
+        vehicle: {
+            type: Object,
+            default() {
+                return {
+                    chassi: "",
+                    status: "disponível",
+                    marca: "",
+                    modelo: "",
+                    placa: "",
+                    observacao: "",
+                };
+            },
+        },
+    },
     components: {
         Dashboard,
     },
@@ -275,8 +292,8 @@ export default {
             ...this.vehicle,
         };
 
-        if(this.inputs.placa != ''){
-            this.validarPlaca()
+        if (this.inputs.placa != "") {
+            this.validarPlaca();
         }
     },
     data() {
@@ -318,10 +335,18 @@ export default {
                 this.validarObservacao(),
             ];
             if (validation_result.findIndex((i) => i == true) == -1) {
-                this.$inertia.put(
-                    this.$route("veiculos.update", this.vehicle.placa),
-                    this.inputs
-                );
+
+                if(this.$page.url == '/dashboard/veiculos/create'){
+                    this.$inertia.post(
+                        this.$route("veiculos.store", this.vehicle.placa),
+                        this.inputs
+                    );
+                }else{
+                    this.$inertia.put(
+                        this.$route("veiculos.update", this.vehicle.placa),
+                        this.inputs
+                    );
+                }
             }
         },
         validarPlaca: function () {
@@ -388,3 +413,22 @@ export default {
     },
 };
 </script>
+<style scoped>
+.is-invalid{
+    border-color: #dc3545;
+    padding-right: calc(1.5em + .75rem);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23dc3545' viewBox='0 0 12 12'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(.375em + .1875rem) center;
+    background-size: calc(.75em + .375rem) calc(.75em + .375rem);
+}
+
+.is-valid{
+    border-color: #28a745;
+    padding-right: calc(1.5em + .75rem);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath fill='%2328a745' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(.375em + .1875rem) center;
+    background-size: calc(.75em + .375rem) calc(.75em + .375rem);
+}
+</style>

@@ -1,7 +1,7 @@
 <template>
     <dashboard>
         <div class="flex flex-col">
-            <div class="mt-3 flex flex-col sm:flex-row">
+            <div class="mt-3 mb-3 flex flex-col sm:flex-row">
                 <div class="flex">
                     <div class="relative">
                         <select
@@ -66,6 +66,13 @@
                         placeholder="Pesquisa"
                         class="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
                     />
+                </div>
+                <div class="block relative mt-2 sm:mt-0 ml-4">
+                    <inertia-link :href="$route('veiculos.create')"
+                        class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-green-400 text-base leading-6 font-medium text-white shadow-sm hover:bg-green-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5"
+                    >
+                        Cadastrar veículo
+                    </inertia-link>
                 </div>
             </div>
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -161,7 +168,12 @@
                                         class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium"
                                     >
                                         <inertia-link
-                                            :href="$route('veiculos.edit', veiculo.placa)"
+                                            :href="
+                                                $route(
+                                                    'veiculos.edit',
+                                                    veiculo.placa
+                                                )
+                                            "
                                             class="text-indigo-600 hover:text-indigo-900"
                                             >Editar</inertia-link
                                         >
@@ -179,7 +191,9 @@
                             class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between"
                         >
                             <span class="text-xs xs:text-sm text-gray-900"
-                                >Mostrando {{ veiculos.current_page }} de {{ veiculos.last_page }} no total de {{ veiculos.total }} veículos</span
+                                >Mostrando {{ veiculos.current_page }} de
+                                {{ veiculos.last_page }} no total de
+                                {{ veiculos.total }} veículos</span
                             >
                             <div class="inline-flex mt-2 xs:mt-0">
                                 <inertia-link
