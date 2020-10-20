@@ -46,11 +46,11 @@
                                 class="text-lg leading-6 font-medium text-gray-900"
                                 id="modal-headline"
                             >
-                                Desativar veículo
+                                Desativar motorista
                             </h3>
                             <div class="mt-2">
                                 <p class="text-sm leading-5 text-gray-500">
-                                    Placa {{ veiculo.placa }}. Are you sure you
+                                    Nome do motorista {{ motorista.nome }} {{ motorista.sobrenome }}. Are you sure you
                                     want to deactivate your account? All of your
                                     data will be permanently removed. This
                                     action cannot be undone.
@@ -66,7 +66,7 @@
                         class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto"
                     >
                         <inertia-link
-                            :href="$route('veiculos.destroy', veiculo.placa)"
+                            :href="$route('motorista.destroy', motorista.id)"
                             method="delete"
                             class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-red-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5"
                         >
@@ -92,16 +92,15 @@
 
 <script>
 export default {
-    name: "ModalDelete",
     data() {
         return {
             isOpen: false,
-            veiculo: false,
+            motorista: false,
         };
     },
     methods: {
-        showModal: function (veiculo) {
-            this.veiculo = veiculo;
+        showModal: function (motorista) {
+            this.motorista = motorista;
             this.isOpen = true;
         },
     },

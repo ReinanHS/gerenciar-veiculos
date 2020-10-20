@@ -68,6 +68,7 @@
 <script>
 import CaminhaoIcon from "@/icons/caminhao-de-entrega.svg";
 import BoxIcon from "@/icons/painel-de-controle.svg";
+import MotoristaIcon from '@/icons/motorista.svg';
 export default {
     data() {
         return {
@@ -80,12 +81,17 @@ export default {
                 {
                     title: "Dashboard",
                     icone: BoxIcon,
-                    link: "/dashboard",
+                    link: route('home'),
                 },
                 {
                     title: "Veiculos",
                     icone: CaminhaoIcon,
-                    link: "/dashboard/veiculos",
+                    link: route('veiculos.index'),
+                },
+                {
+                    title: "Motoristas",
+                    icone: MotoristaIcon,
+                    link: route('motorista.index'),
                 },
             ],
         };

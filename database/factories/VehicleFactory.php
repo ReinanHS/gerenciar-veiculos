@@ -11,7 +11,7 @@ $factory->define(Vehicle::class, function (Faker $faker) {
     $status = ['disponível', 'quebrado', 'manutenção'];
 
     return [
-        'placa' => Str::random(7),
+        'placa' => Str::random(3)."".random_int(100, 999),
         'modelo' => $faker->state,
         'marca' => $faker->company,
         'status' => $status[random_int(0, 2)],

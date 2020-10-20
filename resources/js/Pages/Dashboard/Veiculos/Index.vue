@@ -221,7 +221,7 @@
 
 <script>
 import Dashboard from "@/Shared/Dashboard";
-import ModalDelete from "@/components/ModalDelete";
+import ModalDelete from "@/components/forms/ModalDeleteVeiculo";
 export default {
     props: ["veiculos"],
     components: {
