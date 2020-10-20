@@ -27,5 +27,5 @@ Route::get('/clientes', 'PagesController@clientes');
 
 Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function() {
     Route::get('/', 'HomeController@index')->name('home');
-    Route::resource('/veiculos', 'VehicleController')->parameters(['veiculos' => 'vehicle'])->middleware('auth');
+    Route::resource('/veiculos', 'Dashboard\VehicleController')->parameters(['veiculos' => 'vehicle'])->middleware('auth');
 });

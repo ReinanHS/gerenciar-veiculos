@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Controllers\Controller;
 use Inertia\Inertia;
 use App\Models\Vehicle;
 use App\Models\StatusHistory;
@@ -23,7 +24,7 @@ class VehicleController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function index()
     {
@@ -37,7 +38,7 @@ class VehicleController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function create()
     {
@@ -48,7 +49,7 @@ class VehicleController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \App\Http\Requests\VehicleStoreRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(VehicleStoreRequest $request)
     {
@@ -85,7 +86,7 @@ class VehicleController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Vehicle  $vehicle
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function edit(Vehicle $vehicle)
     {
@@ -99,7 +100,7 @@ class VehicleController extends Controller
      *
      * @param  \App\Http\Requests\VehicleUpdateRequest  $request
      * @param  \App\Models\Vehicle  $vehicle
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(VehicleUpdateRequest $request, Vehicle $vehicle)
     {
@@ -137,7 +138,7 @@ class VehicleController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Vehicle  $vehicle
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Vehicle $vehicle)
     {
